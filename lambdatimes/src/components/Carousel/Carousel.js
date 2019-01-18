@@ -7,7 +7,6 @@ export default class Carousel extends React.Component {
     this.state = {
       imgs: [],
       index: 0,
-      counter: 0,
     }
   }
   componentDidMount(){
@@ -15,22 +14,22 @@ export default class Carousel extends React.Component {
   }
 
   leftClick = () => {
-    let counter = this.state.counter -1;
+    let counter = this.state.index -1;
     let length = this.state.imgs.length;
 
     if(counter < 0) {
       counter=length -1
     } 
-    this.setState({index: counter, counter: counter})
+    this.setState({index: counter})
   }
 
   rightClick = () => {
-    let counter = this.state.counter +1;
+    let counter = this.state.index +1;
 
     if(!this.state.imgs[counter] ) {
       counter = 0;
     }
-    this.setState({index: counter, counter:counter});
+    this.setState({index: counter});
   }
 
   selectedImage = () => {
