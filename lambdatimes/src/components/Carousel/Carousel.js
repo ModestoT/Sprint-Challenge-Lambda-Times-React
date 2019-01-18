@@ -11,10 +11,6 @@ export default class Carousel extends React.Component {
       autoscroll: true
     }
   }
-  componentDidMount(){
-    this.setState({imgs: carouselData});
-    setInterval(this.autoScroll, 2500)
-  }
 
   leftClick = () => {
     let counter = this.state.index -1;
@@ -28,7 +24,6 @@ export default class Carousel extends React.Component {
 
   rightClick = () => {
     let counter = this.state.index +1;
-
     if(!this.state.imgs[counter] ) {
       counter = 0;
     }
@@ -42,21 +37,36 @@ export default class Carousel extends React.Component {
   autoScroll = () => {
     let counter = this.state.counter;
     let scroll = this.state.autoscroll;
-
-    if(scroll){
+ 
+    if(scroll=== true){
       counter++;
       if(!this.state.imgs[counter] ) {
         counter = 0;
       }
-    }
-    this.setState({index: counter, counter: counter});
+      this.setState({index: counter, counter: counter});
+    } 
   }
+
+  updateScroll = () => {
+    this.setState({autoscroll: !this.state.autoscroll})
+  }
+  
+  componentDidMount(){
+    this.setState({imgs: carouselData});
+
+    setInterval(this.autoScroll, 3500)
+  }
+
+  componenetWillUnmount() {
+    this.autoScroll();
+}
   
   render(){
     // console.log(`counter: ${this.state.counter}`);
     // console.log(`index: ${this.state.index}`);
+    console.log(`scroll: ${this.state.autoscroll}`)
     return (
-      <div className="carousel">
+      <div onMouseEnter={this.updateScroll} onMouseLeave={this.updateScroll} className="carousel">
         <div className="left-button" onClick={this.leftClick}>{"<"}</div>
         {this.selectedImage()}
         <div className="right-button" onClick={this.rightClick}>{">"}</div>
