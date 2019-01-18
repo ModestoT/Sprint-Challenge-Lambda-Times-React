@@ -16,21 +16,23 @@ export default class Content extends Component {
       cards: []
     };
   }
-
+  //sets the initial set of Data for the component
   componentDidMount() {
     this.setState({tabs: tabData, cards: cardData});
   }
 
+  //changes the tab based on which displayed tab the user clicks on
   changeSelected = tab => {
     this.setState({selected: tab});
   };
 
+  //filters the cards based on which tab is selected by the user
   filterCards = () => {
-   let newCards = cardData;
-   if(this.state.selected === 'all'){
+   let newCards = cardData;//grabs the card data 
+   if(this.state.selected === 'all'){//if the tab selected is all return all of the cardData
      return newCards;
    } else {
-     return newCards.filter(card => this.state.selected === card.tab);
+     return newCards.filter(card => this.state.selected === card.tab);// if a tab other than all is selected filter the cards based on that tabs name
    }
   };
 
