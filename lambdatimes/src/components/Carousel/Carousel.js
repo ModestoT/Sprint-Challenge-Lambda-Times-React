@@ -7,10 +7,13 @@ export default class Carousel extends React.Component {
     this.state = {
       imgs: [],
       index: 0,
+      counter: 0,
+      autoscroll: true
     }
   }
   componentDidMount(){
     this.setState({imgs: carouselData});
+    setInterval(this.autoScroll, 2500)
   }
 
   leftClick = () => {
@@ -33,7 +36,20 @@ export default class Carousel extends React.Component {
   }
 
   selectedImage = () => {
-    return <img src={this.state.imgs[this.state.index]} style={{display: 'block'}} />
+    return <img src={this.state.imgs[this.state.index]} style={{display: 'block'}} alt="carousel-img"/>
+  }
+
+  autoScroll = () => {
+    let counter = this.state.counter;
+    let scroll = this.state.autoscroll;
+
+    if(scroll){
+      counter++;
+      if(!this.state.imgs[counter] ) {
+        counter = 0;
+      }
+    }
+    this.setState({index: counter, counter: counter});
   }
   
   render(){
